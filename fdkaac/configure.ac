@@ -17,7 +17,7 @@ dnl Automake conditionals to set
 AM_CONDITIONAL(EXAMPLE, test x$example = xyes)
 
 dnl Checks for programs.
-AC_PROG_CC
+dnl AC_PROG_CC
 AC_PROG_CXX
 LT_INIT
 
