@@ -3,7 +3,7 @@
 cd `dirname $0`
 BASE_DIR=`pwd`
 cp -rf src build && cd build
-./autogen.sh
+autoreconf -ivf
 ./configure \
     --enable-static \
     --disable-doc \
