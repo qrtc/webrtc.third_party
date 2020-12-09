@@ -91,17 +91,11 @@ decode_buffer(lzma_coder *coder,
 				in, in_pos, in_size);
 
 		// Copy the decoded data from the dictionary to the out[]
-		// buffer. Do it conditionally because out can be NULL
-		// (in which case copy_size is always 0). Calling memcpy()
-		// with a null-pointer is undefined even if the third
-		// argument is 0.
+		// buffer.
 		const size_t copy_size = coder->dict.pos - dict_start;
 		assert(copy_size <= out_size - *out_pos);
-
-		if (copy_size > 0)
-			memcpy(out + *out_pos, coder->dict.buf + dict_start,
-					copy_size);
-
+		memcpy(out + *out_pos, coder->dict.buf + dict_start,
+				copy_size);
 		*out_pos += copy_size;
 
 		// Reset the dictionary if so requested by coder->lz.code().
@@ -131,7 +125,8 @@ decode_buffer(lzma_coder *coder,
 
 
 static lzma_ret
-lz_decode(void *coder_ptr, const lzma_allocator *allocator,
+lz_decode(void *coder_ptr,
+		const lzma_allocator *allocator lzma_attribute((__unused__)),
 		const uint8_t *restrict in, size_t *restrict in_pos,
 		size_t in_size, uint8_t *restrict out,
 		size_t *restrict out_pos, size_t out_size,
@@ -246,7 +241,7 @@ lzma_lz_decoder_init(lzma_next_coder *next, const lzma_allocator *allocator,
 	if (lz_options.dict_size < 4096)
 		lz_options.dict_size = 4096;
 
-	// Make dictionary size a multiple of 16. Some LZ-based decoders like
+	// Make dictionary size a multipe of 16. Some LZ-based decoders like
 	// LZMA use the lowest bits lzma_dict.pos to know the alignment of the
 	// data. Aligned buffer is also good when memcpying from the
 	// dictionary to the output buffer, since applications are
