@@ -1,0 +1,8 @@
+config("xz_config") {
+    include_dirs = [ "inst/include" ]
+}
+
+source_set("xz") {
+    libs = [ "inst/lib/liblzma.a" ]
+    public_configs = [ ":xz_config" ]
+}
