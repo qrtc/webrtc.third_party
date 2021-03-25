@@ -1,0 +1,8 @@
+config("xcoder_config") {
+    include_dirs = [ "inst/include" ]
+}
+
+source_set("xcoder") {
+    libs = [ "inst/lib/libxcoder.a" ]
+    public_configs = [ ":xcoder_config" ]
+}
