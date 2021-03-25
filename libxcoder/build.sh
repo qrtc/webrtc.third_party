@@ -11,6 +11,8 @@ build_io_rw_macro=true;
 encoder_sync_query=false;
 dump_data=false;
 
+cd `dirname $0`
+
 if [ `whoami` = root ]; then
     read -p "Do you wish to execute with sudo [Y/N]? " -n 1 -r
     echo
